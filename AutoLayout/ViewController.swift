@@ -49,9 +49,17 @@ class ViewController: UIViewController {
         view.addSubview(label4)
         view.addSubview(label5)
 
-//        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
-//        setupConstraintsWithVFL(viewsDictionary: viewsDictionary)
-        
+        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
+        setupConstraints(withVFL: false, viewsDictionary: viewsDictionary)
+    }
+    
+    func setupConstraints(withVFL: Bool, viewsDictionary: [String : UILabel]) {
+        if withVFL {
+            setupConstraintsWithVFL(viewsDictionary: viewsDictionary)
+        } else {
+            let labels = viewsDictionary.map {$0.value}
+            setupConstraintsWithAnchors(labels: labels)
+        }
     }
     
     func setupConstraintsWithVFL(viewsDictionary: [String : UILabel] ) {
@@ -78,6 +86,25 @@ class ViewController: UIViewController {
                     views: viewsDictionary
                 )
             )
+    }
+    
+    func setupConstraintsWithAnchors(labels: [UILabel]) {
+        var previous: UILabel?
+        
+        for label in labels {
+            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            label.heightAnchor.constraint(equalToConstant: 88).isActive = true // Setting a hardcoded height
+            
+            if let previous {
+                // we have a previous label – create a height constraint
+                label.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true // Attaching the top anchor to the bottom anchor of the previous label with a space of 10
+            } else {
+                // this is the first label
+                label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+            }
+            // set the previous label to be the current one, for the next loop iteration
+            previous = label
+        }
     }
 }
 
