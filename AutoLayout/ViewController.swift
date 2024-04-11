@@ -48,12 +48,13 @@ class ViewController: UIViewController {
         view.addSubview(label3)
         view.addSubview(label4)
         view.addSubview(label5)
+
+//        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
+//        setupConstraintsWithVFL(viewsDictionary: viewsDictionary)
         
-        
-        // VISUAL FORMAT LANGUAGE
-        
-        let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
-        
+    }
+    
+    func setupConstraintsWithVFL(viewsDictionary: [String : UILabel] ) {
         for label in viewsDictionary.keys {
             view // Main View
                 .addConstraints( // Adds an array of constraints to View
@@ -77,9 +78,6 @@ class ViewController: UIViewController {
                     views: viewsDictionary
                 )
             )
-        
     }
-
-
 }
 
