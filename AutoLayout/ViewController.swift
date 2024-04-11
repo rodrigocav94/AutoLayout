@@ -66,12 +66,14 @@ class ViewController: UIViewController {
                 )
         }
         
+        let metrics = ["labelHeight": 88]
+        
         view
             .addConstraints(
                 NSLayoutConstraint.constraints(
-                    withVisualFormat: "V:|[label1]-[label2]-[label3]-[label4]-[label5]", // - symbol, which means "space". It's 10
+                    withVisualFormat: "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]-(>=10)-|",
                     options: [],
-                    metrics: nil,
+                    metrics: metrics,
                     views: viewsDictionary
                 )
             )
