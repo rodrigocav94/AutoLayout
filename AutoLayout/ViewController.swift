@@ -59,7 +59,7 @@ class ViewController: UIViewController {
                 .addConstraints( // Adds an array of constraints to View
                     NSLayoutConstraint.constraints( // Auto Layout method that converts VFL into an array of constraints
                         withVisualFormat: "H:|[\(label)]|", //  H: means horizontal, | means edge, H:|[label1]| means "horizontally, I want my label1 to go edge to edge in my view."
-                        options: [.center],
+                        options: [],
                         metrics: nil,
                         views: viewsDictionary
                     )
