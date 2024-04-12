@@ -8,10 +8,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let label1 = UILabel()
         label1.translatesAutoresizingMaskIntoConstraints = false // TAMIC, which means we have to make our constraints by hand, auto resizing masks is an Old iOS way of doing layout.
         label1.backgroundColor = .red
@@ -48,7 +48,7 @@ class ViewController: UIViewController {
         view.addSubview(label3)
         view.addSubview(label4)
         view.addSubview(label5)
-
+        
         let viewsDictionary = ["label1": label1, "label2": label2, "label3": label3, "label4": label4, "label5": label5]
         setupConstraints(withVFL: false, viewsDictionary: viewsDictionary)
     }
@@ -57,7 +57,13 @@ class ViewController: UIViewController {
         if withVFL {
             setupConstraintsWithVFL(viewsDictionary: viewsDictionary)
         } else {
-            let labels = viewsDictionary.map {$0.value}
+            let labels = viewsDictionary
+                .sorted(by: {
+                    $0.key < $1.key
+                })
+                .map {
+                    $0.value
+                }
             setupConstraintsWithAnchors(labels: labels)
         }
     }
@@ -66,7 +72,8 @@ class ViewController: UIViewController {
         for label in viewsDictionary.keys {
             view // Main View
                 .addConstraints( // Adds an array of constraints to View
-                    NSLayoutConstraint.constraints( // Auto Layout method that converts VFL into an array of constraints
+                    NSLayoutConstraint.constraints(
+                        // Auto Layout method that converts VFL into an array of constraints
                         withVisualFormat: "H:|[\(label)]|", //  H: means horizontal, | means edge, H:|[label1]| means "horizontally, I want my label1 to go edge to edge in my view."
                         options: [],
                         metrics: nil,
